@@ -29,6 +29,7 @@ _gradient_optimizers = {'CG', 'BFGS', 'Newton-CG', 'L-BFGS-B', 'TNC', 'SLSQP', '
 _hessian_optimizers = {'trust-constr', 'trust-ncg'}
 _bounds_optimizers = {'L-BFGS-B', 'TNC', 'SLSQP', 'trust-constr', 'dual_annealing', 'shgo',
                       'differential_evolution', 'basinhopping', 'Nelder-Mead'}
+_inf_bounds_optimizers = {'SLSQP'}
 if Version(scipy_version) >= Version("1.11"):
     # COBYLA supports bounds starting with SciPy Version 1.11
     _bounds_optimizers |= {'COBYLA'}
@@ -321,6 +322,12 @@ class ScipyOptimizeDriver(Driver):
                         p_high = meta_high[j]
                     else:
                         p_high = meta_high
+
+                    if opt in _inf_bounds_optimizers:
+                        if p_low == -INF_BOUND:
+                            p_low = -np.inf
+                        if p_high == INF_BOUND:
+                            p_high = np.inf
 
                     bounds.append((p_low, p_high))
 
