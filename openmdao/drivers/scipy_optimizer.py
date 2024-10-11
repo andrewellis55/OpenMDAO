@@ -703,7 +703,7 @@ class ScipyOptimizeDriver(Driver):
                         if upper != 1e30:
                             violation += np.maximum(0.0, con_val - upper) ** 2
 
-                    f_new += np.sum(violation)
+                    f_new += 100 * np.sum(violation)
             else:
                 # Gets the true objective function
                 for obj in self.get_objective_values().values():
@@ -895,18 +895,18 @@ class ScipyOptimizeDriver(Driver):
                 if equals is not None:
                     violation = con_val - equals
                     for i in range(size):
-                        violation_grad += 2 * violation[i] * con_grad[i, :]
+                        violation_grad += 200 * violation[i] * con_grad[i, :]
                 else:
                     if lower is not None:
                         lower_violation = lower - con_val
                         for i in range(size):
                             if lower_violation[i] > 0:
-                                violation_grad += -2 * lower_violation[i] * con_grad[i, :]
+                                violation_grad += -200 * lower_violation[i] * con_grad[i, :]
                     if upper is not None:
                         upper_violation = con_val - upper
                         for i in range(size):
                             if upper_violation[i] > 0:
-                                violation_grad += 2 * upper_violation[i] * con_grad[i, :]
+                                violation_grad += 200 * upper_violation[i] * con_grad[i, :]
                 row += size
 
             grad[0, :] = violation_grad
