@@ -202,8 +202,9 @@ class _TotalJacInfo(object):
 
         self.relevance = get_relevance(model, of_metadata, wrt_metadata)
 
-        if not all_lin_cons:
-            self._check_discrete_dependence()
+        # Commented out to improve runtime -- Andrew Ellis
+        # if not all_lin_cons:
+        #     self._check_discrete_dependence()
 
         if approx:
             coloring_mod._initialize_model_approx(model, driver, of_metadata, wrt_metadata)
