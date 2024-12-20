@@ -192,8 +192,8 @@ class ScipyOptimizeDriver(Driver):
         self.options.declare('singular_jac_tol', default=1e-16,
                              desc='Tolerance for zero row/column check.')
         self.options.declare('minimize_constraint_violation', default=False, values=[False, 'L1', 'L2'],
-                            desc='Set to True to minimize the sum of constraint violations '
-                            'instead of the objective function.')
+                             desc='Set to True to minimize the sum of constraint violations '
+                             'instead of the objective function.')
 
     def _get_name(self):
         """
